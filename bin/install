@@ -7,7 +7,7 @@ install_helm-docs() {
   local install_type=$1
   local version=$2
   local install_path=$3
-  local platform="$(uname)-amd64"
+  local platform="$(uname)_x86_64"
   local bin_install_path="$install_path/bin"
   local binary_path="$bin_install_path/helm-docs"
   local download_url=$(get_download_url $version $platform)
@@ -37,8 +37,8 @@ install_helm-docs() {
 
 
 get_filename() {
-  local platform="$1"
-  local version="$2"
+  local version="$1"
+  local platform="$2"
   echo "helm-docs_v${version}_${platform}.tar.gz"
 }
 
