@@ -39,7 +39,7 @@ install_helm-docs() {
 get_filename() {
   local version="$1"
   local platform="$2"
-  echo "helm-docs_v${version}_${platform}.tar.gz"
+  echo "helm-docs_${version}_${platform}.tar.gz"
 }
 
 get_download_url() {
