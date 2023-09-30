@@ -20,7 +20,7 @@ install_helm-docs() {
   local download_path="$tmp_download_dir/$(get_filename $version $platform)"
 
   echo "Downloading helm-docs from ${download_url} to ${download_path}"
-  curl -Lo $download_path $download_url || curl -Lo $download_path $download_url_old
+  curl -Lfo $download_path $download_url || curl -Lfo $download_path $download_url_old
 
   echo "Creating bin directory"
   mkdir -p "${bin_install_path}"
