@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
-
 set -e
-set -o pipefail
 
 install_helm-docs() {
   local install_type=$1
