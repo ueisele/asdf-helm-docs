@@ -11,6 +11,7 @@ install_helm-docs() {
   local bin_install_path="$install_path/bin"
   local binary_path="$bin_install_path/helm-docs"
   local download_url=$(get_download_url $version $platform)
+  local download_url_old=$(get_download_url_old $version $platform)
 
   if [ "$TMPDIR" = "" ]; then
     local tmp_download_dir=$(mktemp -d -t helm-docs_XXXXXX)
@@ -21,7 +22,7 @@ install_helm-docs() {
   local download_path="$tmp_download_dir/$(get_filename $version $platform)"
 
   echo "Downloading helm-docs from ${download_url} to ${download_path}"
-  curl -Lo $download_path $download_url
+  curl -Lo $download_path $download_url || curl -Lo $download_path $download_url_old
 
   echo "Creating bin directory"
   mkdir -p "${bin_install_path}"
@@ -35,11 +36,10 @@ install_helm-docs() {
   chmod +x ${binary_path}
 }
 
-
 get_filename() {
   local version="$1"
   local platform="$2"
-  echo "helm-docs_${version}_${platform}.tar.gz"
+  echo "helm-docs_${platform}.tar.gz"
 }
 
 get_download_url() {
@@ -48,5 +48,19 @@ get_download_url() {
   local filename="$(get_filename $version $platform)"
   echo "https://github.com/norwoodj/helm-docs/releases/download/v${version}/${filename}"
 }
+
+get_filename_old() {
+  local version="$1"
+  local platform="$2"
+  echo "helm-docs_${version}_${platform}.tar.gz"
+}
+
+get_download_url_old() {
+  local version="$1"
+  local platform="$2"
+  local filename="$(get_filename_old $version $platform)"
+  echo "https://github.com/norwoodj/helm-docs/releases/download/v${version}/${filename}"
+}
+
 
 install_helm-docs $ASDF_INSTALL_TYPE $ASDF_INSTALL_VERSION $ASDF_INSTALL_PATH
